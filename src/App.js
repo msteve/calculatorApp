@@ -10,6 +10,14 @@ function App() {
   const [result, setResult] = useState(0); 
   const [count, setCount] = useState(0);
 
+  const l = [
+    {id: 1, name: 'bread'},
+    {id: 2, name: 'milk'},
+    {id: 3, name: 'eggs'}
+  ];
+
+  const [items, setItems] = useState(l);
+
   useEffect(() => {
     setTimeout(() => {
       setCount((count) => count + 1);
@@ -38,6 +46,11 @@ function App() {
 
   function plus(e) { 
     e.preventDefault(); 
+    //{id: 3, name: 'eggs'}
+    let lastItem=items[items.length-1];
+    items.push( {id: lastItem.id+1, name: 'eggs_'+lastItem.id} );
+    //console.log(items);
+    setItems(items);
     setResult((result) => result + Number(inputRef.current.value)); 
   }; 
  
@@ -95,6 +108,10 @@ function App() {
         {/* Add the resetResult button */} 
       </form> 
       <h1>I've rendered {count} times!</h1>;
+      <h1>Grocery List</h1>
+      <ul>
+        {items.map((item) => <li key={item.id}>{item.name}</li>)}
+      </ul>
     </div> 
   ); 
 } 
